@@ -15,9 +15,10 @@ import {
     List,
     ListItem,
     ListItemButton,
-    ListItemIcon,
     ListItemText,
     Divider,
+    Stack,
+
     Box,
 } from '@mui/material'
 
@@ -72,9 +73,19 @@ function BarGraph({ barGraphData }) {
     };
     // console.log(barGraphData.Boys)
     return (
-        <Box sx={{ width: '100%' }}>
-            <Bar
-                options={options} data={data} />
+        <Box sx={{ width: "95%", m: "auto", mt: 5, mb: 5, }}>
+            <Stack
+                direction="column-reverse"
+                justifyContent="space-evenly"
+                alignItems="flex-start"
+                spacing={0}
+            >
+
+                <Bar
+                    options={options} data={data} />
+
+
+            </Stack>
         </Box>
     )
 }

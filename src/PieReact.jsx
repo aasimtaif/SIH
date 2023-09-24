@@ -63,7 +63,7 @@ function PieReact({ pieData }) {
     };
     console.log(pieData)
     return (<>
-        <Box sx={{ width: '100wh', maxWidth: 360, }} >
+        <Box sx={{ width: '100wh', maxWidth: 560, }} >
             <Pie
                 data={data}
                 ref={chartRef}
