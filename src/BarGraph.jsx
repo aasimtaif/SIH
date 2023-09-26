@@ -18,7 +18,6 @@ import {
     ListItemText,
     Divider,
     Stack,
-
     Box,
 } from '@mui/material'
 
@@ -46,7 +45,7 @@ function BarGraph({ barGraphData }) {
             },
             title: {
                 display: true,
-                text: `Dropout Rate of ${barGraphData?.state}`
+                text: barGraphData?.title
             }
         }
     };
@@ -54,7 +53,7 @@ function BarGraph({ barGraphData }) {
         <>wait</>
     }
 
-    const labels = ['5th', '8th', "10th"];
+    const labels = barGraphData?.labels;
 
     const data = {
         labels,
@@ -71,22 +70,12 @@ function BarGraph({ barGraphData }) {
             }
         ]
     };
-    // console.log(barGraphData.Boys)
+    console.log(barGraphData)
     return (
-        <Box sx={{ width: "95%", m: "auto", mt: 5, mb: 5, }}>
-            <Stack
-                direction="column-reverse"
-                justifyContent="space-evenly"
-                alignItems="flex-start"
-                spacing={0}
-            >
 
-                <Bar
-                    options={options} data={data} />
+        <Bar
+            options={options} data={data} />
 
-
-            </Stack>
-        </Box>
     )
 }
 

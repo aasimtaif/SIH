@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie, getElementAtEvent } from 'react-chartjs-2';
+import { Doughnut, getElementAtEvent } from 'react-chartjs-2';
 import './App.css'
 import BarGraph from './BarGraph';
-import { Box } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -28,15 +28,7 @@ function PieReact({ pieData }) {
                     'rgba(153, 102, 255, 6.2)',
                     'rgba(255, 159, 64, 5.2)',
                 ],
-                borderColor: [
-                    'rgba(54, 162, 235, 3.2)',
-                    'rgba(75, 192, 192, 4.5)',
-                    'rgba(255, 159, 64, 5.2)',
-                    'rgba(255, 206, 86, 6.2)',
-                    'rgba(255, 99, 135, 5.5)',
-                    'rgba(153, 102, 255, 6.2)',
-                ],
-                borderWidth: 1,
+                borderWidth: 0.51,
             },
         ],
     };
@@ -48,10 +40,10 @@ function PieReact({ pieData }) {
         const { index } = element[0];
 
         setBarGraphData({
-            state: pieData.states[index],
+            title: `Drop Rate of ${pieData.states[index]}`,
             Boys: [pieData.data[index].vBoys, pieData.data[index].viiiBoys, pieData.data[index].xBoys],
-            Girls: [pieData.data[index].vGirls, pieData.data[index].viiiGirls, pieData.data[index].xGirls]
-
+            Girls: [pieData.data[index].vGirls, pieData.data[index].viiiGirls, pieData.data[index].xGirls],
+            labels: ['5th', '8th', "10th"]
         });
     };
     const onClick = (event) => {
@@ -63,26 +55,49 @@ function PieReact({ pieData }) {
     };
     console.log(pieData)
     return (<>
-        <Box sx={{ width: '100wh', maxWidth: 560, }} >
-            <Pie
-                data={data}
-                ref={chartRef}
-                onClick={onClick}
-                option={{
-                    labels: {
-                        render: 'percentage',
-                    },
-                    legend: {
-
-                        onClick: (e) => e.stopPropagation(),
-                        display: false,
-                        onclick() { }
-
-                    },
-                }}
-            />
+        <Box >
+            <Box sx={{ width: "100%" }}>
+                <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="flex-start"
+                    spacing={0}
+                >
+                    <Box sx={{ width: "25%", }}>
+                        <Doughnut
+                            data={data}
+                            ref={chartRef}
+                            onClick={onClick}
+                            option={{
+                                labels: {
+                                    render: 'percentage',
+                                },
+                                legend: {
+                                    onClick: (e) => e.stopPropagation(),
+                                    display: false,
+                                    onclick() { }
+                                },
+                            }}
+                        />
+                    </Box>
+                    <Box sx={{ width: "50%", mr: 5 }} >
+                        <BarGraph barGraphData={{
+                            title: `Gender wise Dropout Rate Of States `,
+                            Boys: pieData.data?.map((info) => {
+                                return info.vBoys + info.viiiBoys + info.xBoys
+                            }),
+                            Girls: pieData.data?.map((info) => {
+                                return info.vGirls + info.viiiGirls + info.xGirls
+                            }),
+                            labels: pieData.states,
+                        }} />
+                    </Box>
+                </Stack>
+            </Box>
         </Box>
-        <BarGraph barGraphData={barGraphData} />
+        <Box sx={{ width: 3 / 4, m: "auto", mt: 5 }} >
+            <BarGraph barGraphData={barGraphData} />
+        </Box>
     </>
     )
 }

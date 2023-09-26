@@ -35,10 +35,10 @@ function App() {
   console.log(data)
 
   return (
-    <>
+    <div className='app'>
       <DrawerAppBar />
       <PieReact pieData={data} />
-    </>
+    </div>
   )
 }
 
