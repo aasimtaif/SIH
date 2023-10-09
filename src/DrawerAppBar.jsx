@@ -30,7 +30,7 @@ function DrawerAppBar() {
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
             <Typography variant="h6" sx={{ my: 2 }}>
-                Bots's Project
+               EduVoyage: Navigating Dropout Challenges
             </Typography>
             <Divider />
             <List>
